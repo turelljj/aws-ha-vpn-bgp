@@ -1,0 +1,12 @@
+*.tfstate.backup
+*.tfstate
+.DS_Store
+.terraform.lock.hcl
+.terraform/
+simulated_on_prem/.DS_Store
+simulated_on_prem/.terraform.lock.hcl
+simulated_on_prem/.terraform/
+simulated_on_prem/ansible/.DS_Store
+simulated_on_prem/templates.tf.bak
+terraform.tfstate
+terraform.tfstate.backup

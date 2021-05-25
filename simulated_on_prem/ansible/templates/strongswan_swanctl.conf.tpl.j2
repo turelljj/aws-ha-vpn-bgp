@@ -1,0 +1,50 @@
+connections {
+   gw-gw {
+      local_addrs  = {{ local_addr }}
+      remote_addrs = {{ remote_addr }}
+
+      local {
+         auth = psk
+         id = {{ local_public_addr }}
+      }
+
+      remote {
+         auth = psk
+         id = {{ remote_addr }}
+      }
+
+      children {
+         net-net {
+    	      start_action=trap
+            local_ts = 0.0.0.0/0
+            remote_ts = 0.0.0.0/0
+#           updown = /home/vagrant/up_down.sh
+	         if_id_in = 42
+	         if_id_out = 42
+            #rekey_bytes = 500000000
+            #rekey_packets = 1000000
+            esp_proposals = aes128-sha1-modp1024
+            dpd_action=start
+            close_action=start
+         }
+      }
+      version = 1
+      mobike = no
+      dpd_delay = 10s
+      dpd_timeout = 30s
+      rekey_time = 1h
+      reauth_time = 10800
+      proposals = aes128-sha1-modp1024
+   }
+}
+
+secrets {
+   ike-1 {
+      id-1 = {{ local_public_addr }}
+      secret = {{ local_psk }}
+   }
+   ike-2 {
+      id-2 = {{ remote_addr }}
+      secret = {{ remote_psk }}
+   }
+}

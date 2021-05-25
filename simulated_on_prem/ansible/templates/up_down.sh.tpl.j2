@@ -1,0 +1,9 @@
+ip link add ipsec0 type xfrm dev eth0 if_id 42
+# or if not supported by iproute2 yet:
+#/usr/local/libexec/ipsec/xfrmi --name ipsec0 --id 42 --dev eth0
+
+ip link set ipsec0 up
+#ip route add vpc_cidr  dev ipsec0
+ip address add {{ on_prem_tunnel_ip }}/30 dev ipsec0
+ip link add dummy0 type dummy
+ip address add 192.168.1.10/24 dev dummy0
