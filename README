@@ -1,0 +1,13 @@
+AWS_VGW + bgp <<-->> On-Prem-strongswan + frrouting
+
+use terraform for aws resources.
+use terraform to call ansible to config strongswan and frrouting.
+
+pahse 1: (complete)
+- single IPSEC conn with bgp routing
+
+pahse 2:
+- dual IPSEC conn with bgp routing
+
+pahse 3:
+- use bgp to sterr traffic arount
