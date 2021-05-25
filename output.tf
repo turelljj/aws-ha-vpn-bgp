@@ -27,3 +27,7 @@ output "tunnel2_address" {
 }
 
 output "vpn_tester_ip" { value = aws_instance.vpn-tester.private_ip }
+
+output "testing_command" { 
+  value = "ssh centos@${module.on-prem.on_prem_public_ip} ping ${aws_instance.vpn-tester.private_ip} -I ${module.on-prem.on_prem_private_ip}"
+  }
