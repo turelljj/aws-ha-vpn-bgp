@@ -3,6 +3,8 @@
   hosts: on-prem
   remote_user: centos
   become: yes
+  vars_files:
+    - variables.yml
 
   tasks:
   - name: Disable SELinux

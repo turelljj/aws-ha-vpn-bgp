@@ -115,12 +115,29 @@ resource "local_file" "ansible_inventory" {
   filename = "${path.module}/ansible/inventory"
 }
 
+resource "local_file" "ansible_variables" {
+  content = templatefile("${path.module}/ansible/variables.tmpl", {
+    "aws_instance_on-prem_private_ip" = aws_instance.on-prem.private_ip,
+    "aws_instance_on-prem_public_ip" = aws_instance.on-prem.public_ip,
+    "tunnel1_public_ip" = var.tunnel1_public_ip,
+    "tunnel1_shared_key" = var.tunnel1_shared_key,
+    "aws_tunnel_1_insde_ip" = var.aws_tunnel_1_insde_ip,
+    "on_prem_tunnel_1_inside_ip" = var.on_prem_tunnel_1_inside_ip,
+    "tunnel2_public_ip" = var.tunnel2_public_ip,
+    "tunnel2_shared_key" = var.tunnel2_shared_key,
+    "aws_tunnel_2_insde_ip" = var.aws_tunnel_2_insde_ip,
+    "on_prem_tunnel_2_inside_ip" = var.on_prem_tunnel_2_inside_ip
+  })
+  filename = "${path.module}/ansible/variables.yml"
+}
+
 resource "null_resource" "echolala" {
   provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ${path.module}/ansible/inventory --private-key /Users/ture/.ssh/id_rsa ${path.module}/ansible/play.yml -e \"local_addr=${aws_instance.on-prem.private_ip} local_public_addr=${aws_instance.on-prem.public_ip} remote_addr=${var.tunnel1_public_ip} local_psk=${var.tunnel1_shared_key} remote_psk=${var.tunnel1_shared_key} aws_tunnel_ip=${var.aws_tunnel_ip} on_prem_tunnel_ip=${var.on_prem_tunnel_ip}\""
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ${path.module}/ansible/inventory --private-key /Users/ture/.ssh/id_rsa ${path.module}/ansible/play.yml"
   }
   depends_on = [
-    local_file.ansible_inventory
+    local_file.ansible_inventory,
+    local_file.ansible_variables
   ]
   triggers = {
     always_run = "${timestamp()}"

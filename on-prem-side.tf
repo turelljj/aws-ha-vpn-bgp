@@ -4,7 +4,11 @@ module "on-prem" {
   AWS_KEY_ID         = var.AWS_KEY_ID
   tunnel1_public_ip  = aws_vpn_connection.main.tunnel1_address
   tunnel1_shared_key = aws_vpn_connection.main.tunnel1_preshared_key
-#   vpn_vpc_cidr       = module.vpc-1.vpc_cidr_block
-  on_prem_tunnel_ip = aws_vpn_connection.main.tunnel1_cgw_inside_address
-  aws_tunnel_ip = aws_vpn_connection.main.tunnel1_vgw_inside_address
+  aws_tunnel_1_insde_ip = aws_vpn_connection.main.tunnel1_vgw_inside_address
+  on_prem_tunnel_1_inside_ip = aws_vpn_connection.main.tunnel1_cgw_inside_address
+
+  tunnel2_public_ip  = aws_vpn_connection.main.tunnel2_address
+  tunnel2_shared_key = aws_vpn_connection.main.tunnel2_preshared_key
+  aws_tunnel_2_insde_ip = aws_vpn_connection.main.tunnel2_vgw_inside_address
+  on_prem_tunnel_2_inside_ip = aws_vpn_connection.main.tunnel2_cgw_inside_address
 }
