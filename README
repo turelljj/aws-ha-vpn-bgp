@@ -6,8 +6,10 @@ use terraform to call ansible to config strongswan and frrouting.
 pahse 1: (complete)
 - single IPSEC conn with bgp routing
 
-pahse 2:
+pahse 2: (complete)
 - dual IPSEC conn with bgp routing
 
-pahse 3:
-- use bgp to sterr traffic arount
+pahse 3: (complete)
+use bgp to sterr traffic arount
+- local->aws: use bgp route-map(neib 169.254.254.44 route-map tunnel_1_first) to add local preference for route with specific nexthop
+- aws->local: use bgp as-prepend to add prepend to aws vgw.
