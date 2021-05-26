@@ -1,5 +1,5 @@
 module "on-prem" {
-  source             = "./simulated_on_prem"
+  source             = "github.com/turelljj/simulated_on_prem_with_ipsec_and_bgp"
   AWS_SECRET_ID      = var.AWS_SECRET_ID
   AWS_KEY_ID         = var.AWS_KEY_ID
   tunnel1_public_ip  = aws_vpn_connection.main.tunnel1_address
